@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 export const StyleTabNav = StyleSheet.create({
     shadow: {
-        shadowColor: '#00000070',
+        shadowColor: '#00000010',
         shadowOffset: {
             width: 0,
             height: 10,
@@ -24,7 +24,7 @@ export const StyleAdd = StyleSheet.create({
     },
 
     view: {
-        shadowColor: '#00000070',
+        shadowColor: '#00000030',
         shadowOffset: {
             width: 0,
             height: 10,
