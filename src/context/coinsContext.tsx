@@ -33,32 +33,27 @@ let initialState = [
 ]
 
 
-interface dispatchProps {
-  state: {
-    dataCoins: DataCoins[]
-  }
-  action: {
-    type: string
-    payload: DataCoins
-  }
+interface contextModel {
+  state?: DataCoins[]
+  dispatch?: React.Dispatch<dispatchAction>
 }
 
 interface dispatchAction {
   type: string
-  payload: DataCoins[]
+  payload: any
 }
 
 interface actionsObject {
-  addCoin: (state: any, action: any) => any
+  addCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
 }
 
-export const CoinsContext = createContext<any>([])
+export const CoinsContext = createContext<contextModel>({})
 
 const actions: actionsObject = {
-  addCoin(state: any, action: any) {
+  addCoin(state: DataCoins[], action: dispatchAction) {
 
     //Check for duplicate item
-    Object.keys(action.payload).forEach((key) => {
+    Object.keys(action.payload).forEach((key: string) => {
       let bool = false
       state.forEach((object: DataCoins) => {
         if (object.code == action.payload[key].code && object.codein == action.payload[key].codein) {
@@ -76,7 +71,7 @@ const actions: actionsObject = {
 
 export default function CoinsProvider({ children }: { children: React.ReactNode }) {
 
-  const reducer = (state: any, action: any) => {
+  const reducer = (state: DataCoins[], action: dispatchAction) => {
     const funcAction = actions[action.type as keyof actionsObject]
     return funcAction ? funcAction(state, action) : state
   }

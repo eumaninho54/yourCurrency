@@ -8,8 +8,7 @@ import { ListItem } from 'react-native-elements'
 
 export default function Home() {
   const { state, dispatch } = useContext(CoinsContext)
-  let test = true
-  const renderItem = ({ item }: any) => {
+  const renderItem = ({ item }: {item: DataCoins}) => {
 
     return (
       <View style={RenderItem.bg}>
@@ -33,11 +32,10 @@ export default function Home() {
   const requestPayload = async () => {
     const dataApi = await serviceDataCoins.get('USD-BRL,EUR-BRL')
     if(dataApi != undefined){
-      dispatch({
+      dispatch!({
         type: 'addCoin',
         payload: dataApi
       })
-      test = !test
     }
   }
 
