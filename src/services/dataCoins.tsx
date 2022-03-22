@@ -1,19 +1,18 @@
 import { DataCoins } from "../models/dataCoins";
 
-export const dataCoins: DataCoins[] = [
-    {
-        id: 1,
-        name: 'Dolar',
-        value: 5.55
-    },
-    {
-        id: 2,
-        name: 'Euro',
-        value: 7.10
-    },
-    {
-        id: 3,
-        name: 'Libra',
-        value: 9.30
-    },
-]
+class ServiceDataCoins {
+  urlAPI = 'https://economia.awesomeapi.com.br/'
+
+  constructor() { }
+
+  async get(currency: string) {
+    let dataApi = await fetch(`${this.urlAPI}last/${currency}`, {
+      method: 'GET'
+    }).then((response) => response.json())
+    if(dataApi['status'] != 404){
+      return dataApi
+    }
+  }
+}
+
+export const serviceDataCoins = new ServiceDataCoins()

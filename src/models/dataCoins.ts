@@ -1,5 +1,13 @@
 export interface DataCoins {
-    id: number
+    code: string
+    codein: string
     name: string
-    value: number
+    high: string
+    low: string
+    varBid: string
+    pctChange: string
+    bid: string
+    ask: string
+    timestamp: string
+    create_date: string
 }

@@ -6,3 +6,21 @@ export const StyleHome = styled.View`
     flex: 1;
     padding-top: 22px;
 `
+
+export const RenderItem = StyleSheet.create({
+    bg: {
+
+    },
+
+    content: {
+
+    },
+
+    nameCurrency: {
+
+    },
+
+    valueCurrency: {
+        
+    }
+})

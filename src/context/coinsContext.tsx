@@ -1,14 +1,37 @@
 import { View, Text } from 'react-native'
 import React, { createContext, useReducer } from 'react'
-import { dataCoins } from '../services/dataCoins'
+import { serviceDataCoins } from '../services/dataCoins'
 import { DataCoins } from '../models/dataCoins'
 
-const initialState = { dataCoins }
-export const CoinsContext: React.Context<{}> = createContext({})
+let initialState = [
+  {
+    code: "1",
+    codein: 'string',
+    name: 'string',
+    high: 'string',
+    low: 'string',
+    varBid: 'string',
+    pctChange: 'string',
+    bid: 'string',
+    ask: 'string',
+    timestamp: 'string',
+    create_date: 'string'
+  },
+  {
+    code: "2",
+    codein: 'string',
+    name: 'string',
+    high: 'string',
+    low: 'string',
+    varBid: 'string',
+    pctChange: 'string',
+    bid: 'string',
+    ask: 'string',
+    timestamp: 'string',
+    create_date: 'string'
+  },
+]
 
-interface CoinsProviderProps {
-  children: React.ReactNode
-}
 
 interface dispatchProps {
   state: {
@@ -22,43 +45,39 @@ interface dispatchProps {
 
 interface dispatchAction {
   type: string
-  payload: DataCoins
-}
-
-interface dispatchState {
-  dataCoins: DataCoins[]
+  payload: DataCoins[]
 }
 
 interface actionsObject {
-  createCoin: (state: dispatchState, action: dispatchAction) => dispatchState
-  deleteUser: (state: dispatchState, action: dispatchAction) => dispatchState
+  addCoin: (state: any, action: any) => any
 }
 
+export const CoinsContext = createContext<any>([])
 
+const actions: actionsObject = {
+  addCoin(state: any, action: any) {
 
-const actions: actionsObject   = {
-   createCoin(state: dispatchState, action: dispatchAction): dispatchState {
-    const coin = action.payload
-    coin.id = Math.random()
-    return {
-      ...state,
-      dataCoins: [...state.dataCoins, coin]
-    }
-  },
+    //Check for duplicate item
+    Object.keys(action.payload).forEach((key) => {
+      let bool = false
+      state.forEach((object: DataCoins) => {
+        if (object.code == action.payload[key].code && object.codein == action.payload[key].codein) {
+          bool = true
+        }
+      })
+      if (!bool) {
+        state.push(action.payload[key])
+      }
+    })
 
-  deleteUser(state: dispatchState, action: dispatchAction): dispatchState {
-    const coin = action.payload
-    return {
-      ...state,
-      dataCoins: state.dataCoins.filter((c: { id: number }) => c.id !== coin.id)
-    }
+    return [...state]
   }
 }
 
-export default function CoinsProvider(props: CoinsProviderProps) {
+export default function CoinsProvider({ children }: { children: React.ReactNode }) {
 
-  const reducer = (state: dispatchState, action: dispatchAction): dispatchState => {
-    let funcAction =  actions[action.type as keyof actionsObject] 
+  const reducer = (state: any, action: any) => {
+    const funcAction = actions[action.type as keyof actionsObject]
     return funcAction ? funcAction(state, action) : state
   }
 
@@ -66,7 +85,7 @@ export default function CoinsProvider(props: CoinsProviderProps) {
 
   return (
     <CoinsContext.Provider value={{ state, dispatch }}>
-      {props.children}
+      {children}
     </CoinsContext.Provider>
   )
 }
