@@ -1,11 +1,9 @@
-import { DataCoins } from "../models/dataCoins";
-
 class ServiceDataCoins {
   urlAPI = 'https://economia.awesomeapi.com.br/'
 
   constructor() { }
 
-  async get(currency: string) {
+  async getComparison(currency: string) {
     let dataApi = await fetch(`${this.urlAPI}last/${currency}`, {
       method: 'GET'
     }).then((response) => response.json())
@@ -13,6 +11,8 @@ class ServiceDataCoins {
       return dataApi
     }
   }
+  
+
 }
 
 export const serviceDataCoins = new ServiceDataCoins()

@@ -1,4 +1,6 @@
 export interface DataCoins {
+    image: string
+    symbol: string
     code: string
     codein: string
     name: string
@@ -10,4 +12,11 @@ export interface DataCoins {
     ask: string
     timestamp: string
     create_date: string
+}
+
+export interface currencySymbol {
+    BRL: string
+    USD: string
+    CAD: string
+    EUR: string
 }

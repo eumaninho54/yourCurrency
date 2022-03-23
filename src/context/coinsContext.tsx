@@ -1,37 +1,11 @@
 import { View, Text } from 'react-native'
 import React, { createContext, useReducer } from 'react'
-import { serviceDataCoins } from '../services/dataCoins'
-import { DataCoins } from '../models/dataCoins'
+import { serviceDataCoins } from '../services/dataCoinsService'
+import { flags } from '../services/flags'
+import { symbols } from '../services/symbols'
+import { DataCoins, currencySymbol } from '../models/dataCoinsModel'
 
-let initialState = [
-  {
-    code: "1",
-    codein: 'string',
-    name: 'string',
-    high: 'string',
-    low: 'string',
-    varBid: 'string',
-    pctChange: 'string',
-    bid: 'string',
-    ask: 'string',
-    timestamp: 'string',
-    create_date: 'string'
-  },
-  {
-    code: "2",
-    codein: 'string',
-    name: 'string',
-    high: 'string',
-    low: 'string',
-    varBid: 'string',
-    pctChange: 'string',
-    bid: 'string',
-    ask: 'string',
-    timestamp: 'string',
-    create_date: 'string'
-  },
-]
-
+let initialState: DataCoins[] = []
 
 interface contextModel {
   state?: DataCoins[]
@@ -61,9 +35,18 @@ const actions: actionsObject = {
         }
       })
       if (!bool) {
-        state.push(action.payload[key])
+        state.push({
+          image: flags[action.payload[key].codein as keyof currencySymbol],
+          symbol: symbols[action.payload[key].codein as keyof currencySymbol],
+          ...action.payload[key]
+        })
+        //state.push(action.payload[key])
       }
     })
+
+    //Add coin image 
+
+
 
     return [...state]
   }
