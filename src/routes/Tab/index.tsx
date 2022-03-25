@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from '../../components/Home'
 import Add from '../../components/Add'
-import { StyleAdd, StyleTabNav } from './styles'
+import { StyleAdd, StyleTabNav, StyleCoinSelected } from './styles'
 import Settings from '../../components/Settings'
 import { Icon, Image } from 'react-native-elements'
 import addIcon from '../../assets/add-icon1.png'
@@ -13,6 +13,7 @@ const Tab = createBottomTabNavigator()
 interface CustomTabBarButton {
   children: React.ReactNode
   onPress?: ((e: GestureResponderEvent) => void) | undefined
+  showSliding: any
 }
 
 const CustomTabBarButton = (props: CustomTabBarButton) => (
@@ -24,7 +25,7 @@ const CustomTabBarButton = (props: CustomTabBarButton) => (
       alignItems: 'center'
 
     }}
-    onPress={props.onPress} >
+    onPress={() => props.showSliding.show()}>
 
     <View style={{
       width: 100,
@@ -38,7 +39,7 @@ const CustomTabBarButton = (props: CustomTabBarButton) => (
 
 )
 
-export default function TabNav() {
+export default function TabNav({ showSliding }: { showSliding:any }) {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -61,7 +62,7 @@ export default function TabNav() {
       }}>
 
       <Tab.Screen name='Home' component={Home} options={{
-        tabBarIcon: ({ focused }:any) => (
+        tabBarIcon: ({ focused }: any) => (
           <View style={{ alignItems: 'center', justifyContent: 'center', top: 5 }}>
             <Icon
               name='home'
@@ -73,8 +74,9 @@ export default function TabNav() {
           </View>
         )
       }} />
-      <Tab.Screen name='Add' component={Add} options={{
-        tabBarIcon: ({ focused }:any) => (
+
+      <Tab.Screen name='Add' component={Home} options={{
+        tabBarIcon: ({ focused }: any) => (
           <View style={StyleAdd.view}>
             <Image
               source={addIcon}
@@ -82,13 +84,14 @@ export default function TabNav() {
               resizeMode='contain' />
           </View>
         ),
-        tabBarButton: (props:any) => (
-          <CustomTabBarButton {...props} />
+        tabBarButton: (props: any) => (
+          <CustomTabBarButton {...props} showSliding={showSliding} />
         )
 
       }} />
+
       <Tab.Screen name='Settings' component={Settings} options={{
-        tabBarIcon: ({ focused }:any) => (
+        tabBarIcon: ({ focused }: any) => (
           <View style={{ alignItems: 'center', justifyContent: 'center', top: 5 }}>
             <Icon
               name='settings'

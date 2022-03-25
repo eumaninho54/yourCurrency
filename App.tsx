@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { View, Text, StatusBar, SafeAreaView } from 'react-native'
 import React from 'react'
 import Routes from './src/routes'

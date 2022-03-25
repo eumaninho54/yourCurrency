@@ -4,16 +4,18 @@ import { StyleHome, RenderItem } from './styles'
 import { CoinsContext } from '../../context/coinsContext'
 import { DataCoins } from '../../models/dataCoinsModel'
 import { serviceDataCoins } from '../../services/dataCoinsService'
-import { ListItem } from 'react-native-elements'
 
 export default function Home() {
   const { state, dispatch } = useContext(CoinsContext)
+
   const renderItem = ({ item }: { item: DataCoins }) => {
-    console.tron.log!(item.image)
+
     return (
       <View style={RenderItem.bg}>
         <View style={RenderItem.content}>
-          <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
+          <View style={RenderItem.flag}>
+            <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
+          </View>
 
           <View style={RenderItem.nameCurrency}>
             <Text>{item.codein}</Text>
@@ -22,17 +24,19 @@ export default function Home() {
         </View>
 
         <View style={RenderItem.valueCurrency}>
-          <Text>{item.symbol+ ' ' + item.high}</Text>
+          <Text>{item.symbol + ' ' + item.high}</Text>
         </View>
       </View>
     )
   }
 
-  const ItemSeparatorComponent = (props:any) => {
+  const ItemSeparatorComponent = (props: any) => {
     return (
       <View style={
         {
           height: 1,
+          marginLeft: 5,
+          marginRight: 5,
           backgroundColor: props.highlighted
             ? 'yellow'
             : 'gray'
@@ -61,6 +65,7 @@ export default function Home() {
         keyExtractor={(coin) => coin.codein}
         renderItem={renderItem}
         ItemSeparatorComponent={ItemSeparatorComponent}
+
       >
       </FlatList>
 
