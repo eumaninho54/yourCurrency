@@ -19,12 +19,13 @@ interface dispatchAction {
 
 interface actionsObject {
   addCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
+  reloadCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
 }
 
 export const CoinsContext = createContext<contextModel>({})
 
 const actions: actionsObject = {
-  addCoin(state: DataCoins[], action: dispatchAction) {
+  addCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
 
     //Check for duplicate item
     Object.keys(action.payload).forEach((key: string) => {
@@ -40,15 +41,14 @@ const actions: actionsObject = {
           symbol: symbols[action.payload[key].codein as keyof currencySymbol],
           ...action.payload[key]
         })
-        //state.push(action.payload[key])
       }
     })
 
-    //Add coin image 
-
-
-
     return [...state]
+  },
+
+  reloadCoin(state: DataCoins[], action: dispatchAction): DataCoins[]{
+    return [...action.payload]
   }
 }
 

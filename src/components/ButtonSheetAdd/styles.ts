@@ -9,7 +9,7 @@ export const StyleAdd = StyleSheet.create({
         width: '100%',
         backgroundColor: 'white',
         position: 'absolute',
-        top: SCREEN_HEIGHT / 3,
+        top: SCREEN_HEIGHT / 7,
         borderRadius: 25,
     },
 

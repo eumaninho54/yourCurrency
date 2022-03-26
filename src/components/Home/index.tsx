@@ -11,22 +11,24 @@ export default function Home() {
   const renderItem = ({ item }: { item: DataCoins }) => {
 
     return (
-      <View style={RenderItem.bg}>
-        <View style={RenderItem.content}>
-          <View style={RenderItem.flag}>
-            <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
+      <TouchableOpacity onPress={() => {requestPayload(item.codein)}}>
+        <View style={RenderItem.bg}>
+          <View style={RenderItem.content}>
+            <View style={RenderItem.flag}>
+              <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
+            </View>
+
+            <View style={RenderItem.nameCurrency}>
+              <Text>{item.codein}</Text>
+              <Text>{item.name.split('/', 2)[1]}</Text>
+            </View>
           </View>
 
-          <View style={RenderItem.nameCurrency}>
-            <Text>{item.codein}</Text>
-            <Text>{item.name.split('/', 2)[1]}</Text>
+          <View style={RenderItem.valueCurrency}>
+            <Text>{item.symbol + ' ' + item.high}</Text>
           </View>
         </View>
-
-        <View style={RenderItem.valueCurrency}>
-          <Text>{item.symbol + ' ' + item.high}</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -47,8 +49,27 @@ export default function Home() {
     )
   }
 
-  const requestPayload = async () => {
-    const dataApi = await serviceDataCoins.getComparison('USD-BRL,USD-EUR,USD-CAD')
+  const requestPayload = async (codein: any) => {
+    let stateKeys: string = ""
+    state?.forEach(coin => {
+      if(codein != coin.codein){
+        stateKeys += `${codein}-${coin.codein},`
+      }
+    })
+    stateKeys = stateKeys.slice(0, -1)
+
+    const dataApi = await serviceDataCoins.getComparison(stateKeys, codein, 1)
+    console.tron.log!(dataApi)
+    if (dataApi != undefined) {
+      dispatch!({
+        type: 'reloadCoin',
+        payload: dataApi
+      })
+    }
+  }
+
+  const TESTrequestPayload = async () => {
+    const dataApi = await serviceDataCoins.TESTgetComparison('USD-BRL,USD-EUR,USD-CAD')
     if (dataApi != undefined) {
       dispatch!({
         type: 'addCoin',
@@ -69,7 +90,7 @@ export default function Home() {
       >
       </FlatList>
 
-      <TouchableOpacity onPress={() => { requestPayload() }}>
+      <TouchableOpacity onPress={() => { TESTrequestPayload() }}>
         <Text>ADICIONAR</Text>
       </TouchableOpacity>
 

@@ -15,9 +15,11 @@ export default function Routes() {
       <NavigationContainer>
         <TabNav showSliding={showSlidingAdd} />
 
-        <SlidingUpPanel ref={(ref: any) => setShowSlidingAdd(ref)}>
+        <SlidingUpPanel 
+          ref={(ref: any) => setShowSlidingAdd(ref)}>
           <ButtonSheetAdd/>
         </SlidingUpPanel>
+        
       </NavigationContainer>
     </>
   )

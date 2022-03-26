@@ -9,4 +9,24 @@ export const symbols: currencySymbol = {
     CAD: "CA$",
     
     EUR: "€",
+
+    CNY: "CN¥",
+
+    JPY: "JP¥",
+
+    GBP: "£",
+
+    AUD: "A$",
+
+    ARS: "$",
+
+    BTC: "₿",
+
+    XPF: "CFPF",
+
+    INR: "₹",
+
+    CHF: "Fr"
+
+
 }

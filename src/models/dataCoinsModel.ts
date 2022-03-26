@@ -5,13 +5,6 @@ export interface DataCoins {
     codein: string
     name: string
     high: string
-    low: string
-    varBid: string
-    pctChange: string
-    bid: string
-    ask: string
-    timestamp: string
-    create_date: string
 }
 
 export interface currencySymbol {
@@ -19,4 +12,18 @@ export interface currencySymbol {
     USD: string
     CAD: string
     EUR: string
+    CNY: string
+    JPY: string
+    GBP: string
+    AUD: string
+    ARS: string
+    BTC: string
+    XPF: string
+    INR: string
+    CHF: string
+}
+
+export interface alphabetList {
+    value: string
+    key: string
 }
