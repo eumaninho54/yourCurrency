@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import TabNav from './Tab';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import { Button } from 'react-native-elements';
+import ButtonSheetAdd from '../components/ButtonSheetAdd';
 
 export default function Routes() {
   const [showSlidingAdd, setShowSlidingAdd] = useState(null)
@@ -13,10 +14,9 @@ export default function Routes() {
     <>
       <NavigationContainer>
         <TabNav showSliding={showSlidingAdd} />
-        <SlidingUpPanel ref={(ref: any) => setShowSlidingAdd(ref)}>
-          <View>
 
-          </View>
+        <SlidingUpPanel ref={(ref: any) => setShowSlidingAdd(ref)}>
+          <ButtonSheetAdd/>
         </SlidingUpPanel>
       </NavigationContainer>
     </>

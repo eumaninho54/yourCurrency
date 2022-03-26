@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, GestureResponderEvent } from 'react-nativ
 import React, { Component } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from '../../components/Home'
-import Add from '../../components/Add'
+import Add from '../../components/ButtonSheetAdd'
 import { StyleAdd, StyleTabNav, StyleCoinSelected } from './styles'
 import Settings from '../../components/Settings'
 import { Icon, Image } from 'react-native-elements'

@@ -2,10 +2,10 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { StyleAdd } from './styles'
 
-export default function Add() {
+export default function ButtonSheetAdd() {
   return (
-    <View>
-      <Text>Add</Text>
+    <View style={StyleAdd.container}>
+      <View style={StyleAdd.line}/>
     </View>
   )
 }
