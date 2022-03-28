@@ -5,6 +5,7 @@ export interface DataCoins {
     codein: string
     name: string
     high: string
+    selected: boolean
 }
 
 export interface currencySymbol {

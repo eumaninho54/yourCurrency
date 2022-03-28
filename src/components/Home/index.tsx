@@ -12,7 +12,7 @@ export default function Home() {
 
     return (
       <TouchableOpacity onPress={() => {requestPayload(item.codein)}}>
-        <View style={RenderItem.bg}>
+        <View style={[RenderItem.bg, item.selected ? {backgroundColor: 'gray'} : null]}>
           <View style={RenderItem.content}>
             <View style={RenderItem.flag}>
               <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
@@ -49,17 +49,20 @@ export default function Home() {
     )
   }
 
-  const requestPayload = async (codein: any) => {
-    let stateKeys: string = ""
+  const requestPayload = async (code: any) => {
+    let stateKeys: string = ''
+    if(code != 'USD'){
+      stateKeys = `USD-${code},`
+    }
     state?.forEach(coin => {
-      if(codein != coin.codein){
-        stateKeys += `${codein}-${coin.codein},`
+      if(code != coin.codein && coin.codein != 'USD'){
+        stateKeys += `USD-${coin.codein},`
       }
     })
     stateKeys = stateKeys.slice(0, -1)
+    console.tron.log!(stateKeys)
 
-    const dataApi = await serviceDataCoins.getComparison(stateKeys, codein, 1)
-    console.tron.log!(dataApi)
+    const dataApi = await serviceDataCoins.getComparison(stateKeys, code, 10)
     if (dataApi != undefined) {
       dispatch!({
         type: 'reloadCoin',
@@ -69,7 +72,7 @@ export default function Home() {
   }
 
   const TESTrequestPayload = async () => {
-    const dataApi = await serviceDataCoins.TESTgetComparison('USD-BRL,USD-EUR,USD-CAD')
+    const dataApi = await serviceDataCoins.TESTgetComparison('USD-BRL,USD-EUR,USD-CAD,USD-CNY')
     if (dataApi != undefined) {
       dispatch!({
         type: 'addCoin',
@@ -85,6 +88,7 @@ export default function Home() {
         extraData={state}
         keyExtractor={(coin) => coin.codein}
         renderItem={renderItem}
+        contentContainerStyle={{paddingBottom: 100}}
         ItemSeparatorComponent={ItemSeparatorComponent}
 
       >

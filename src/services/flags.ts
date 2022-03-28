@@ -14,7 +14,7 @@ export const flags: currencySymbol = {
     JPY: "https://cdn-icons-png.flaticon.com/512/3909/3909439.png",
 
     GBP: "https://cdn-icons-png.flaticon.com/512/3909/3909136.png",
-
+    
     AUD: "https://cdn-icons-png.flaticon.com/512/3909/3909435.png",
 
     ARS: "https://cdn-icons-png.flaticon.com/512/3909/3909430.png",

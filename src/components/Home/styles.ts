@@ -11,8 +11,8 @@ export const StyleHome = styled.View`
 export const RenderItem = StyleSheet.create({
   bg: {
     flexDirection: "row",
-    margin: 15,
-    justifyContent: "space-between",
+    padding: 15,
+    justifyContent: "space-between"
   },
 
   content: {
