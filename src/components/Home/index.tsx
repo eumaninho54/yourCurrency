@@ -12,7 +12,7 @@ export default function Home() {
 
     return (
       <TouchableOpacity onPress={() => {requestPayload(item.codein)}}>
-        <View style={[RenderItem.bg, item.selected ? {backgroundColor: 'gray'} : null]}>
+        <View style={[RenderItem.bg, item.selected ? {backgroundColor: '#d0facc'} : null]}>
           <View style={RenderItem.content}>
             <View style={RenderItem.flag}>
               <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
@@ -24,24 +24,22 @@ export default function Home() {
             </View>
           </View>
 
-          <View style={RenderItem.valueCurrency}>
-            <Text>{item.symbol + ' ' + item.high}</Text>
+          <View style={[RenderItem.valueCurrency, item.selected ? {backgroundColor: '#19a50d'} : null]}>
+            <Text style={item.selected ? {color: 'white'} : {color:'#13730A'}}>{item.symbol + ' ' + item.high}</Text>
           </View>
         </View>
       </TouchableOpacity>
     )
   }
 
-  const ItemSeparatorComponent = (props: any) => {
+  const ItemSeparatorComponent = () => {
     return (
       <View style={
         {
           height: 1,
-          marginLeft: 5,
-          marginRight: 5,
-          backgroundColor: props.highlighted
-            ? 'yellow'
-            : 'gray'
+          marginLeft: 20,
+          marginRight: 20,
+          backgroundColor: '#dddddd'
         }
       }>
 
@@ -49,7 +47,7 @@ export default function Home() {
     )
   }
 
-  const requestPayload = async (code: any) => {
+  const requestPayload = async (code: string) => {
     let stateKeys: string = ''
     if(code != 'USD'){
       stateKeys = `USD-${code},`

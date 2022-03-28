@@ -6,7 +6,7 @@ import Add from '../../components/ButtonSheetAdd'
 import { StyleAdd, StyleTabNav, StyleCoinSelected } from './styles'
 import Settings from '../../components/Settings'
 import { Icon, Image } from 'react-native-elements'
-import addIcon from '../../assets/add-icon1.png'
+import addIcon from '../../assets/add-icon1-green.png'
 
 const Tab = createBottomTabNavigator()
 
@@ -47,7 +47,7 @@ export default function TabNav({ showSliding }: { showSliding:any }) {
         headerTitleAlign: 'center',
         headerTintColor: '#fff',
         headerTitleStyle: { fontSize: 22 },
-        headerStyle: { backgroundColor: '#FEBF01' },
+        headerStyle: { backgroundColor: '#19a50d' },
         tabBarLabelStyle: { display: 'none' },
         tabBarStyle: {
           position: 'absolute',
@@ -61,13 +61,13 @@ export default function TabNav({ showSliding }: { showSliding:any }) {
         }
       }}>
 
-      <Tab.Screen name='Home' component={Home} options={{
-        tabBarIcon: ({ focused }: any) => (
+      <Tab.Screen name='Currency' component={Home} options={{
+        tabBarIcon: ({ focused }: {focused: boolean}) => (
           <View style={{ alignItems: 'center', justifyContent: 'center', top: 5 }}>
             <Icon
               name='home'
               style={{}}
-              color={focused ? '#FEBF01' : '#aaa'}
+              color={focused ? '#19a50d' : '#aaa'}
               size={35}
               tvParallaxProperties={{}} />
             <Text>HOME</Text>
@@ -76,7 +76,7 @@ export default function TabNav({ showSliding }: { showSliding:any }) {
       }} />
 
       <Tab.Screen name='Add' component={Home} options={{
-        tabBarIcon: ({ focused }: any) => (
+        tabBarIcon: () => (
           <View style={StyleAdd.view}>
             <Image
               source={addIcon}
@@ -91,12 +91,12 @@ export default function TabNav({ showSliding }: { showSliding:any }) {
       }} />
 
       <Tab.Screen name='Settings' component={Settings} options={{
-        tabBarIcon: ({ focused }: any) => (
+        tabBarIcon: ({ focused }: {focused: boolean}) => (
           <View style={{ alignItems: 'center', justifyContent: 'center', top: 5 }}>
             <Icon
               name='settings'
               style={{}}
-              color={focused ? '#FEBF01' : '#aaa'}
+              color={focused ? '#19a50d' : '#aaa'}
               size={30}
               tvParallaxProperties={{}} />
             <Text>SETTINGS</Text>

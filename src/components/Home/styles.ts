@@ -2,8 +2,6 @@ import { StyleSheet } from "react-native";
 import React from "react";
 import styled from "styled-components/native";
 
-const orange = "#FEBF01";
-
 export const StyleHome = styled.View`
   flex: 1;
 `;
@@ -37,7 +35,7 @@ export const RenderItem = StyleSheet.create({
   },
 
   valueCurrency: {
-    backgroundColor: "#FEBF01",
+    backgroundColor: "#d0facc",
     justifyContent: "center",
     alignItems: "center",
     padding: 6,

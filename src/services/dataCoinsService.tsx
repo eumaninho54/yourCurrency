@@ -10,7 +10,7 @@ class ServiceDataCoins {
   constructor() { }
 
   async getComparison(currencys: string, codein: string, valueCodein: number) {
-    let returnState: Array<any> = []
+    let returnState: Array<DataCoins> = []
     let nameIcon: string = ""
     let currencyCodein: number = valueCodein
     

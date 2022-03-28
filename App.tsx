@@ -9,8 +9,8 @@ console.tron = reactotron
 export default function App() {
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#FEBF01' }}>
-      <StatusBar animated backgroundColor={'#FEBF01'} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#19a50d' }}>
+      <StatusBar animated backgroundColor={'#19a50d'} />
       <CoinsProvider>
         <Routes />
       </CoinsProvider>

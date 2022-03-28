@@ -1,10 +1,12 @@
+
+import currency from "currency.js"
 export interface DataCoins {
     image: string
     symbol: string
     code: string
     codein: string
     name: string
-    high: string
+    high: number | string | currency
     selected: boolean
 }
 
