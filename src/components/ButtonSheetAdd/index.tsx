@@ -5,6 +5,7 @@ import { AlphabetList } from 'react-native-section-alphabet-list'
 import { CoinsContext } from '../../context/coinsContext'
 import { alphabetList, DataCoins } from '../../models/dataCoinsModel'
 import { serviceDataCoins } from '../../services/dataCoinsService'
+import ButtonSheet from '../../templates/ButtonSheet'
 
 
 export default function ButtonSheetAdd() {
@@ -26,17 +27,17 @@ export default function ButtonSheetAdd() {
   }
 
   return (
-    <View style={StyleAdd.container}>
-      <View style={StyleAdd.line}/>
+      <ButtonSheet>
+        <AlphabetList
+          extraData={dataList}
+          data={dataList}
+          indexLetterStyle={{ 
+            color: 'blue', 
+            fontSize: 15,
+          }}
+          renderCustomItem={renderCustomItem}/>
+      </ButtonSheet>
 
-      <AlphabetList
-        extraData={dataList}
-        data={dataList}
-        indexLetterStyle={{ 
-          color: 'blue', 
-          fontSize: 15,
-        }}
-        renderCustomItem={renderCustomItem}/>
-    </View>
+
   )
 }

@@ -59,7 +59,7 @@ class ServiceDataCoins {
       codein: "USD",
       name: nameIcon,
       high: codein == "USD"
-        ? currencyCodein
+        ? currency(currencyCodein)
         : (valueCodein / currencyCodein).toFixed(2),
       selected: codein == "USD"
         ? true

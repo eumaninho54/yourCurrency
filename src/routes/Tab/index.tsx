@@ -13,33 +13,37 @@ const Tab = createBottomTabNavigator()
 interface CustomTabBarButton {
   children: React.ReactNode
   onPress?: ((e: GestureResponderEvent) => void) | undefined
-  showSliding: any
 }
 
-const CustomTabBarButton = (props: CustomTabBarButton) => (
 
-  <TouchableOpacity
-    style={{
-      top: -30,
-      justifyContent: 'center',
-      alignItems: 'center'
+export default function TabNav({ showSlidingAdd, showSlidingConvert }: { showSlidingAdd: any, showSlidingConvert: any }) {
 
-    }}
-    onPress={() => props.showSliding.show()}>
+  const CustomTabBarButton = (props: CustomTabBarButton) => {
 
-    <View style={{
-      width: 100,
-      height: 130,
-      borderRadius: 60
-    }}>
-      {props.children}
-    </View>
+    return (
 
-  </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          top: -30,
+          justifyContent: 'center',
+          alignItems: 'center'
 
-)
+        }}
+        onPress={() => { showSlidingAdd.show() }}>
 
-export default function TabNav({ showSliding }: { showSliding:any }) {
+        <View style={{
+          width: 100,
+          height: 130,
+          borderRadius: 60
+        }}>
+          {props.children}
+        </View>
+
+      </TouchableOpacity>
+
+    )
+  }
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -62,7 +66,7 @@ export default function TabNav({ showSliding }: { showSliding:any }) {
       }}>
 
       <Tab.Screen name='Currency' component={Home} options={{
-        tabBarIcon: ({ focused }: {focused: boolean}) => (
+        tabBarIcon: ({ focused }: { focused: boolean }) => (
           <View style={{ alignItems: 'center', justifyContent: 'center', top: 5 }}>
             <Icon
               name='home'
@@ -85,13 +89,13 @@ export default function TabNav({ showSliding }: { showSliding:any }) {
           </View>
         ),
         tabBarButton: (props: any) => (
-          <CustomTabBarButton {...props} showSliding={showSliding} />
+          <CustomTabBarButton {...props} />
         )
 
       }} />
 
       <Tab.Screen name='Settings' component={Settings} options={{
-        tabBarIcon: ({ focused }: {focused: boolean}) => (
+        tabBarIcon: ({ focused }: { focused: boolean }) => (
           <View style={{ alignItems: 'center', justifyContent: 'center', top: 5 }}>
             <Icon
               name='settings'

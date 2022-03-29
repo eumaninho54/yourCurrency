@@ -4,14 +4,16 @@ import { StyleHome, RenderItem } from './styles'
 import { CoinsContext } from '../../context/coinsContext'
 import { DataCoins } from '../../models/dataCoinsModel'
 import { serviceDataCoins } from '../../services/dataCoinsService'
+import { RefContext } from '../../context/refContext'
 
 export default function Home() {
   const { state, dispatch } = useContext(CoinsContext)
+  const { showSlidingConvert, setShowSlidingConvert } = useContext(RefContext)
 
   const renderItem = ({ item }: { item: DataCoins }) => {
 
     return (
-      <TouchableOpacity onPress={() => {requestPayload(item.codein)}}>
+      <TouchableOpacity onPress={()=> {showSlidingConvert.show()}}>
         <View style={[RenderItem.bg, item.selected ? {backgroundColor: '#d0facc'} : null]}>
           <View style={RenderItem.content}>
             <View style={RenderItem.flag}>
