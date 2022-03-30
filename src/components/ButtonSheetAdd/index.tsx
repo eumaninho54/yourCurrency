@@ -28,6 +28,7 @@ export default function ButtonSheetAdd() {
 
   return (
       <ButtonSheet>
+        <Text>Add</Text>
         <AlphabetList
           extraData={dataList}
           data={dataList}

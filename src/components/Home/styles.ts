@@ -42,4 +42,19 @@ export const RenderItem = StyleSheet.create({
     height: 30,
     borderRadius: 7,
   },
-});
+})
+
+export const ModalConvert = StyleSheet.create({
+  bg: {
+    width:'80%',
+    height: '50%',
+    backgroundColor:'white',
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+
+  header: {
+
+  }
+})

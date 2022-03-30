@@ -16,7 +16,7 @@ interface CustomTabBarButton {
 }
 
 
-export default function TabNav({ showSlidingAdd, showSlidingConvert }: { showSlidingAdd: any, showSlidingConvert: any }) {
+export default function TabNav({ showSlidingAdd }: { showSlidingAdd: any}) {
 
   const CustomTabBarButton = (props: CustomTabBarButton) => {
 
@@ -27,7 +27,6 @@ export default function TabNav({ showSlidingAdd, showSlidingConvert }: { showSli
           top: -30,
           justifyContent: 'center',
           alignItems: 'center'
-
         }}
         onPress={() => { showSlidingAdd.show() }}>
 

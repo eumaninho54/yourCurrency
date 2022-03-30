@@ -4,7 +4,6 @@ import React from 'react'
 import Routes from './src/routes'
 import { reactotron } from './src/config/reactotron'
 import CoinsProvider from './src/context/coinsContext'
-import RefProvider from './src/context/refContext'
 console.tron = reactotron
 
 export default function App() {
@@ -13,9 +12,7 @@ export default function App() {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#19a50d' }}>
       <StatusBar animated backgroundColor={'#19a50d'} />
       <CoinsProvider>
-        <RefProvider>
-          <Routes />
-        </RefProvider>
+        <Routes />
       </CoinsProvider>
     </SafeAreaView>
   )
