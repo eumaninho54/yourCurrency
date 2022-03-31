@@ -5,7 +5,27 @@ import { flags } from '../services/flags'
 import { symbols } from '../services/symbols'
 import { DataCoins, currencySymbol } from '../models/dataCoinsModel'
 
-let initialState: DataCoins[] = []
+let initialState: DataCoins[] = [
+  {
+    code: 'USD',
+    codein: 'USD',
+    high: '1.00',
+    image: "https://cdn-icons-png.flaticon.com/512/3909/3909383.png",
+    name: 'Dólar/Dólar Americano',
+    selected: true,
+    symbol: "US$"
+  },
+
+  {
+    code: 'USD',
+    codein: 'BRL',
+    high: '4.75',
+    image: "https://cdn-icons-png.flaticon.com/512/3909/3909370.png",
+    name: 'Dólar/Real Brasileiro',
+    selected: false,
+    symbol: "R$"
+  }
+]
 
 interface contextModel {
   state?: DataCoins[]

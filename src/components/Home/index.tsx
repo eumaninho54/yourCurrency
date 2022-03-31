@@ -4,17 +4,26 @@ import { StyleHome, RenderItem, ModalConvert } from './styles'
 import { CoinsContext } from '../../context/coinsContext'
 import { DataCoins } from '../../models/dataCoinsModel'
 import { serviceDataCoins } from '../../services/dataCoinsService'
+import { Icon } from 'react-native-elements'
 import Modal from 'react-native-modal'
 
 export default function Home() {
   const { state, dispatch } = useContext(CoinsContext)
   const [visible, setVisible] = useState(false)
-  let currencyPress: DataCoins
+  const [currencyPress, setCurrencyPress] = useState<DataCoins>({
+    code: 'USD',
+    codein: 'TEST',
+    high: '',
+    image: '',
+    name: '',
+    selected: true,
+    symbol: ''
+  })
 
   const renderItem = ({ item }: { item: DataCoins }) => {
 
     return (
-      <TouchableOpacity onPress={() => { currencyPress = item; setVisible(true) }}>
+      <TouchableOpacity onPress={() => { setCurrencyPress(item); setVisible(true) }}>
         <View style={[RenderItem.bg, item.selected ? { backgroundColor: '#d0facc' } : null]}>
           <View style={RenderItem.content}>
             <View style={RenderItem.flag}>
@@ -22,7 +31,7 @@ export default function Home() {
             </View>
 
             <View style={RenderItem.nameCurrency}>
-              <Text>{item.codein}</Text>
+              <Text style={{color: 'gray'}}>{item.codein}</Text>
               <Text>{item.name.split('/', 2)[1]}</Text>
             </View>
           </View>
@@ -72,16 +81,6 @@ export default function Home() {
     }
   }
 
-  const TESTrequestPayload = async () => {
-    const dataApi = await serviceDataCoins.TESTgetComparison('USD-BRL,USD-EUR,USD-CAD,USD-CNY')
-    if (dataApi != undefined) {
-      dispatch!({
-        type: 'addCoin',
-        payload: dataApi
-      })
-    }
-  }
-
   return (
     <StyleHome>
       <FlatList
@@ -95,11 +94,6 @@ export default function Home() {
       >
       </FlatList>
 
-      <TouchableOpacity onPress={() => { TESTrequestPayload() }}>
-        <Text>ADICIONAR</Text>
-      </TouchableOpacity>
-
-
       <Modal
         isVisible={visible}
         animationIn="fadeIn"
@@ -108,10 +102,28 @@ export default function Home() {
         backdropTransitionOutTiming={0}
         onBackdropPress={() => setVisible(false)}>
         <View style={ModalConvert.bg}>
-          <View style={ModalConvert.header}>
+          <View style={[ModalConvert.header]}>
+            <View style={ModalConvert.contentCurrency}>
+              <View style={ModalConvert.flag}>
+                <Image style={{ width: 50, height: 50 }} source={{ uri: currencyPress.image }} />
+              </View>
 
+              <View style={ModalConvert.nameCurrency}>
+                <Text style={{color: 'gray'}}>{currencyPress.codein}</Text>
+                <Text>{currencyPress.name.split('/', 2)[1]}</Text>
+              </View>
+            </View>
+
+            <Icon
+              name='close'
+              style={{}}
+              color={'#aaa'}
+              size={35}
+              tvParallaxProperties={{}} 
+              onPress={() => setVisible(false)}/>
           </View>
         </View>
+
       </Modal>
 
 

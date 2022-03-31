@@ -25,7 +25,7 @@ export const RenderItem = StyleSheet.create({
       width: 0,
       height: 0,
     },
-    shadowOpacity: 1.25,
+    shadowOpacity: 0.55,
     shadowRadius: 3,
     borderRadius: 23
   },
@@ -46,7 +46,7 @@ export const RenderItem = StyleSheet.create({
 
 export const ModalConvert = StyleSheet.create({
   bg: {
-    width:'80%',
+    width:'90%',
     height: '50%',
     backgroundColor:'white',
     paddingVertical: 30,
@@ -55,6 +55,29 @@ export const ModalConvert = StyleSheet.create({
   },
 
   header: {
+    flexDirection: "row",
+    padding: 15,
+    justifyContent: "space-between"
+  },
 
-  }
+  contentCurrency:{
+    marginLeft: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+
+  flag: {
+    shadowColor: "#00000060",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 3,
+    borderRadius: 23
+  },
+
+  nameCurrency: {
+    marginLeft: 15,
+  },
 })
