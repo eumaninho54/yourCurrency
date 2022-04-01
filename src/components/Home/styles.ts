@@ -101,8 +101,6 @@ export const ModalConvert = StyleSheet.create({
     height: 40,
     alignItems: "center",
     justifyContent: "center",
-    elevation: 5,
-
    
     
   }

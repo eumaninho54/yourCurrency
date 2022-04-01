@@ -1,5 +1,5 @@
-import { View, Text, FlatList, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, FlatList, Image, TouchableOpacity, Platform, Keyboard } from 'react-native'
+import React, { useContext, useState } from 'react'
 import { StyleHome, RenderItem, ModalConvert } from './styles'
 import { CoinsContext } from '../../context/coinsContext'
 import { DataCoins } from '../../models/dataCoinsModel'
@@ -7,11 +7,16 @@ import { serviceDataCoins } from '../../services/dataCoinsService'
 import { Icon } from 'react-native-elements'
 import Modal from 'react-native-modal'
 import CurrencyInput from 'react-native-currency-input'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+
+
+
 
 export default function Home() {
   const { state, dispatch } = useContext(CoinsContext)
   const [visible, setVisible] = useState(false)
   const [newCurrency, setNewCurrency] = useState<number | null>(0)
+  const [bgCurrency, setBgCurrency] = useState(0)
   const [currencyPress, setCurrencyPress] = useState<DataCoins>({
     code: 'USD',
     codein: 'TEST',
@@ -22,11 +27,10 @@ export default function Home() {
     symbol: ''
   })
 
-
   const renderItem = ({ item }: { item: DataCoins }) => {
 
     return (
-      <TouchableOpacity onPress={() => { setCurrencyPress(item); setVisible(true) }}>
+      <TouchableOpacity onPress={() => {setCurrencyPress(item); setVisible(true)}}>
         <View style={[RenderItem.bg, item.selected ? { backgroundColor: '#d0facc' } : null]}>
           <View style={RenderItem.content}>
             <View style={RenderItem.flag}>
@@ -84,6 +88,10 @@ export default function Home() {
     }
   }
 
+  const test = () => {
+
+  }
+
   return (
     <StyleHome>
       <FlatList
@@ -95,57 +103,58 @@ export default function Home() {
         ItemSeparatorComponent={ItemSeparatorComponent}>
       </FlatList>
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <Modal
-          isVisible={visible}
-          animationIn="fadeIn"
-          style={{ justifyContent: 'center', alignItems: 'center' }}
-          animationOut="fadeOut"
-          backdropTransitionOutTiming={0}
-          onBackdropPress={() => setVisible(false)}>
-          <View style={ModalConvert.bg}>
-            <View style={[ModalConvert.header]}>
-              <View style={ModalConvert.contentCurrency}>
-                <View style={ModalConvert.flag}>
-                  <Image style={{ width: 50, height: 50 }} source={{ uri: currencyPress.image }} />
-                </View>
-
-                <View style={ModalConvert.nameCurrency}>
-                  <Text style={{ color: 'gray' }}>{currencyPress.codein}</Text>
-                  <Text>{currencyPress.name.split('/', 2)[1]}</Text>
-                </View>
+      <Modal
+        onTouchStart={() => Keyboard.dismiss()}
+        isVisible={visible}
+        animationIn="fadeIn"
+        style={{ justifyContent: 'center', alignItems: 'center' }}
+        animationOut="fadeOut"
+        backdropTransitionOutTiming={0}
+        onBackdropPress={() => setVisible(false)}>
+        <View style={ModalConvert.bg}>
+          <View style={[ModalConvert.header]}>
+            <View style={ModalConvert.contentCurrency}>
+              <View style={ModalConvert.flag}>
+                <Image style={{ width: 50, height: 50 }} source={{ uri: currencyPress.image }} />
               </View>
 
-              <Icon
-                name='close'
-                color={'#777777'}
-                size={35}
-                tvParallaxProperties={{}}
-                onPress={() => setVisible(false)} />
-            </View>
-            <View style={ModalConvert.value}>
-              <Text style={{ fontSize: 24 }} >{currencyPress.symbol}</Text>
-              <CurrencyInput
-                style={{ fontSize: 30 }}
-                value={newCurrency == null ? 0.00 : newCurrency}
-                onChangeValue={value => setNewCurrency(value)}
-                minValue={0}
-                separator={'.'}
-                delimiter={','} />
+              <View style={ModalConvert.nameCurrency}>
+                <Text style={{ color: 'gray' }}>{currencyPress.codein}</Text>
+                <Text>{currencyPress.name.split('/', 2)[1]}</Text>
+              </View>
             </View>
 
-            <View style={ModalConvert.buttonBg}>
-              <TouchableOpacity style={ModalConvert.button}>
-                <Text style={{fontSize: 20, color: 'white'}}>CONVERT</Text>
-              </TouchableOpacity>
-            </View>
+            <Icon
+              name='close'
+              color={'#777777'}
+              size={35}
+              tvParallaxProperties={{}}
+              onPress={() => setVisible(false)} />
+          </View>
+          <View style={ModalConvert.value}>
+            <Text style={{ fontSize: 24 }} >{currencyPress.symbol}</Text>
+            <CurrencyInput
+              keyboardType='number-pad'
+              style={{ fontSize: 30 }}
+              value={newCurrency == null ? 0.00 : newCurrency}
+              onChangeValue={value => setNewCurrency(value)}
+              minValue={0}
+              maxValue={9999999999}
+              separator={'.'}
+              delimiter={','} />
           </View>
 
-        </Modal>
-      </KeyboardAvoidingView>
+          <View style={ModalConvert.buttonBg}>
+            <TouchableOpacity style={ModalConvert.button}>
+              <Text style={{ fontSize: 20, color: 'white' }}>CONVERT</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
+        {Platform.OS === 'ios' ? <KeyboardSpacer /> : null}
+      </Modal>
 
     </StyleHome>
   )
 }
+
