@@ -47,7 +47,7 @@ export const RenderItem = StyleSheet.create({
 export const ModalConvert = StyleSheet.create({
   bg: {
     width:'90%',
-    height: '50%',
+    height: 300,
     backgroundColor:'white',
     paddingVertical: 30,
     paddingHorizontal: 20,
@@ -80,4 +80,31 @@ export const ModalConvert = StyleSheet.create({
   nameCurrency: {
     marginLeft: 15,
   },
+  
+  value: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginRight: 20,
+  },
+
+  buttonBg: {
+    width: '100%',
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
+  },
+  
+  button: {
+    backgroundColor: '#19a50d',
+    borderRadius: 10,
+    width: 130,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
+
+   
+    
+  }
+
 })
