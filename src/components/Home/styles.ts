@@ -25,7 +25,7 @@ export const RenderItem = StyleSheet.create({
       width: 0,
       height: 0,
     },
-    shadowOpacity: 0.55,
+    shadowOpacity: 0.35,
     shadowRadius: 3,
     borderRadius: 23
   },
@@ -72,7 +72,7 @@ export const ModalConvert = StyleSheet.create({
       width: 0,
       height: 0,
     },
-    shadowOpacity: 0.55,
+    shadowOpacity: 0.35,
     shadowRadius: 3,
     borderRadius: 23
   },

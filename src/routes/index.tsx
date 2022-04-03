@@ -5,7 +5,6 @@ import TabNav from './Tab';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import { Button } from 'react-native-elements';
 import ButtonSheetAdd from '../components/ButtonSheetAdd';
-import ButtonSheetConvert from '../components/ButtonSheetConvert';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function Routes() {

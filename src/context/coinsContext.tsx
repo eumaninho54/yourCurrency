@@ -46,17 +46,18 @@ export const CoinsContext = createContext<contextModel>({})
 
 const actions: actionsObject = {
   addCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
+    let newState = state
 
     //Check for duplicate item
     Object.keys(action.payload).forEach((key: string) => {
       let bool = false
-      state.forEach((object: DataCoins) => {
+      newState.forEach((object: DataCoins) => {
         if (object.code == action.payload[key].code && object.codein == action.payload[key].codein) {
           bool = true
         }
       })
       if (!bool) {
-        state.push({
+        newState.push({
           image: flags[action.payload[key].codein as keyof currencySymbol],
           symbol: symbols[action.payload[key].codein as keyof currencySymbol],
           ...action.payload[key]
@@ -64,7 +65,7 @@ const actions: actionsObject = {
       }
     })
 
-    return [...state]
+    return newState
   },
 
   reloadCoin(state: DataCoins[], action: dispatchAction): DataCoins[]{
