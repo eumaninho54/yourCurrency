@@ -21,8 +21,6 @@ export const flags: currencySymbol = {
 
     BTC: "https://cdn-icons-png.flaticon.com/512/3378/3378036.png",
 
-    XPF: "https://cdn-icons-png.flaticon.com/512/3909/3909323.png",
-
     INR: "https://cdn-icons-png.flaticon.com/512/3909/3909444.png",
 
     CHF: "https://cdn-icons-png.flaticon.com/512/3909/3909285.png"

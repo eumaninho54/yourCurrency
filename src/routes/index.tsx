@@ -6,6 +6,7 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
 import { Button } from 'react-native-elements';
 import ButtonSheetAdd from '../components/ButtonSheetAdd';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ButtonSheet from '../templates/ButtonSheet';
 
 export default function Routes() {
   const [showSlidingAdd, setShowSlidingAdd] = useState(null)
@@ -13,11 +14,14 @@ export default function Routes() {
   return (
     <>
       <NavigationContainer>
-        <TabNav showSlidingAdd={showSlidingAdd}/>
+        <TabNav showSlidingAdd={showSlidingAdd} />
 
         <SlidingUpPanel
-          ref={(ref:any) => setShowSlidingAdd(ref)}>
-          <ButtonSheetAdd/>
+          allowDragging={false}
+          ref={(ref: any) => setShowSlidingAdd(ref)}>
+          <ButtonSheet showSlidingAdd={showSlidingAdd}>
+            <ButtonSheetAdd />
+          </ButtonSheet>
         </SlidingUpPanel>
 
       </NavigationContainer>

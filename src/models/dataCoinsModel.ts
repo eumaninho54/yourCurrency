@@ -21,7 +21,6 @@ export interface currencySymbol {
     AUD: string
     ARS: string
     BTC: string
-    XPF: string
     INR: string
     CHF: string
 }
@@ -29,4 +28,7 @@ export interface currencySymbol {
 export interface alphabetList {
     value: string
     key: string
+    image: string
+    name: string
+    selected: boolean
 }

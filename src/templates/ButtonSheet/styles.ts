@@ -9,7 +9,7 @@ export const StyleAdd = StyleSheet.create({
         width: '100%',
         backgroundColor: 'white',
         position: 'absolute',
-        top: '15%',
+        top:'10%',
         borderRadius: 25,
     },
 

@@ -24,6 +24,16 @@ let initialState: DataCoins[] = [
     name: 'Dólar/Real Brasileiro',
     selected: false,
     symbol: "R$"
+  },
+
+  {
+    code: 'USD',
+    codein: 'EUR',
+    high: '0.94',
+    image: "https://cdn-icons-png.flaticon.com/512/323/323344.png",
+    name: 'Dólar/Euro',
+    selected: false,
+    symbol: "€"
   }
 ]
 

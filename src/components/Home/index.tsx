@@ -24,7 +24,6 @@ export default function Home() {
 
   const renderSwipeableAction = () => {
 
-
     return (
       <RectButton>
         <Animated.Text>

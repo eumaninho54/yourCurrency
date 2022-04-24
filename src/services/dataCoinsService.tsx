@@ -13,10 +13,12 @@ class ServiceDataCoins {
     let returnState: Array<DataCoins> = []
     let nameIcon: string = ""
     let currencyCodein: number = valueCodein
+    console.tron.log!(currencys)
     
     let dataApi = await fetch(`${this.urlAPI}last/${currencys}`, {
       method: 'GET'
     }).then((response) => response.json())
+    console.tron.log!(dataApi)
 
     if (dataApi['status'] == 404) {
       return undefined

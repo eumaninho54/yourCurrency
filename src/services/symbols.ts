@@ -22,11 +22,7 @@ export const symbols: currencySymbol = {
 
     BTC: "₿",
 
-    XPF: "CFPF",
-
     INR: "₹",
 
     CHF: "Fr"
-
-
 }
