@@ -9,12 +9,14 @@ class ServiceDataCoins {
 
   constructor() { }
 
-  async getComparison(currencys: string, codein: string, valueCodein: number) {
+  async getComparison(state: DataCoins[], codein: string, valueCodein: number, newCode?: string) {
     let returnState: Array<DataCoins> = []
     let nameIcon: string = ""
     let currencyCodein: number = valueCodein
-    console.tron.log!(currencys)
-    
+
+    let currencys = this.buildCurrencys(codein, state, newCode)
+
+
     let dataApi = await fetch(`${this.urlAPI}last/${currencys}`, {
       method: 'GET'
     }).then((response) => response.json())
@@ -24,11 +26,11 @@ class ServiceDataCoins {
       return undefined
     }
 
-    if(codein != "USD"){
+    if (codein != "USD") {
       let dataApi = await fetch(`${this.urlAPI}last/USD-${codein}`, {
         method: 'GET'
       }).then((response) => response.json())
-      if(dataApi['status'] == 404){
+      if (dataApi['status'] == 404) {
         return undefined
       }
       Object.keys(dataApi).forEach(key => {
@@ -84,10 +86,24 @@ class ServiceDataCoins {
     }
   }
 
-  async getAll(allCurrency: string) {
-    let dataApi = await fetch(`${this.urlAPI}last/`)
-  }
+  buildCurrencys(code: string, state: DataCoins[], newCode?: string) {
+    let stateKeys: string = ''
+    if (code != 'USD') {
+      stateKeys = `USD-${code},`
+    }
+    state.forEach(coin => {
+      if (code != coin.codein && coin.codein != 'USD') {
+        stateKeys += `USD-${coin.codein},`
+      }
+    })
 
+    if (newCode != 'USD')
+      stateKeys += `USD-${newCode},`
+
+    stateKeys = stateKeys.slice(0, -1)
+
+    return stateKeys
+  }
 
 }
 

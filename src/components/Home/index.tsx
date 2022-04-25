@@ -8,7 +8,7 @@ import { GestureHandlerRootView, RectButton, TouchableWithoutFeedback } from 're
 import {ModalConvert} from '../ModalConvert'
 
 export default function Home() {
-  const { state, dispatch } = useContext(CoinsContext)
+  const coinsContext = useContext(CoinsContext)
   const [visible, setVisible] = useState(false)
   const [newCurrency, setNewCurrency] = useState<number | null>(0)
   const [onSwipeable, setOnSwipeable] = useState(false)
@@ -21,6 +21,9 @@ export default function Home() {
     selected: true,
     symbol: ''
   })
+
+  if (!coinsContext) return null
+  const { state, dispatch } = coinsContext
 
   const renderSwipeableAction = () => {
 

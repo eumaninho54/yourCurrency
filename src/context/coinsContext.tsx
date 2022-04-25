@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useState } from 'react'
 import { serviceDataCoins } from '../services/dataCoinsService'
 import { flags } from '../services/flags'
 import { symbols } from '../services/symbols'
-import { DataCoins, currencySymbol } from '../models/dataCoinsModel'
+import { DataCoins, currencySymbol, alphabetList } from '../models/dataCoinsModel'
+import { nameCurrency } from '../services/nameCurrency'
 
 let initialState: DataCoins[] = [
   {
@@ -15,7 +16,6 @@ let initialState: DataCoins[] = [
     selected: true,
     symbol: "US$"
   },
-
   {
     code: 'USD',
     codein: 'BRL',
@@ -25,7 +25,6 @@ let initialState: DataCoins[] = [
     selected: false,
     symbol: "R$"
   },
-
   {
     code: 'USD',
     codein: 'EUR',
@@ -35,11 +34,12 @@ let initialState: DataCoins[] = [
     selected: false,
     symbol: "€"
   }
+
 ]
 
 interface contextModel {
-  state?: DataCoins[]
-  dispatch?: React.Dispatch<dispatchAction>
+  state: DataCoins[]
+  dispatch: React.Dispatch<dispatchAction>
 }
 
 interface dispatchAction {
@@ -52,7 +52,7 @@ interface actionsObject {
   reloadCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
 }
 
-export const CoinsContext = createContext<contextModel>({})
+export const CoinsContext = createContext<contextModel | null>(null)
 
 const actions: actionsObject = {
   addCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
@@ -75,10 +75,10 @@ const actions: actionsObject = {
       }
     })
 
-    return newState
+    return [...newState]
   },
 
-  reloadCoin(state: DataCoins[], action: dispatchAction): DataCoins[]{
+  reloadCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
     return [...action.payload]
   }
 }
@@ -89,7 +89,6 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
     const funcAction = actions[action.type as keyof actionsObject]
     return funcAction ? funcAction(state, action) : state
   }
-
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (

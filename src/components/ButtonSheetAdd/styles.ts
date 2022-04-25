@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from "react-native";
 
-export const RenderCustomItem = StyleSheet.create({
+export const RenderCustomItemStyle = StyleSheet.create({
   content: {
     flexDirection: "row",
     alignItems: "center",
@@ -19,3 +19,4 @@ export const RenderCustomItem = StyleSheet.create({
     color: 'black'
   }
 });
+

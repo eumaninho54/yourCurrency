@@ -18,22 +18,13 @@ interface ModalConvert {
 }
 
 export function ModalConvert({visible, setVisible, newCurrency, setNewCurrency, currencyPress}: ModalConvert) {
-  const { state, dispatch } = useContext(CoinsContext)
+  const coinsContext = useContext(CoinsContext)
+  if (!coinsContext) return null
+  const { state, dispatch } = coinsContext
 
-  const requestPayload = async (code: string, value: number | null) => {
-    let stateKeys: string = ''
-    if (code != 'USD') {
-      stateKeys = `USD-${code},`
-    }
-    state?.forEach(coin => {
-      if (code != coin.codein && coin.codein != 'USD') {
-        stateKeys += `USD-${coin.codein},`
-      }
-    })
-    stateKeys = stateKeys.slice(0, -1)
-    console.tron.log!(stateKeys)
+  const requestPayload = async (codein: string, value: number | null) => {
 
-    const dataApi = await serviceDataCoins.getComparison(stateKeys, code, value == null ? 0 : value)
+    const dataApi = await serviceDataCoins.getComparison(state, codein, value == null ? 0 : value)
     if (dataApi != undefined) {
       dispatch!({
         type: 'reloadCoin',
