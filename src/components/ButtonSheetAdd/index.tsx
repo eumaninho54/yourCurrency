@@ -122,7 +122,7 @@ export default function ButtonSheetAdd() {
       />
 
       <AlphabetList
-        style={{ height: '70%' }}
+        style={{ height: '61%' }}
         extraData={state}
         data={dataAvailable}
         indexLetterStyle={{display: 'none'}}

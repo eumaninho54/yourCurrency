@@ -1,12 +1,13 @@
 import { View, Text, FlatList, Image, Animated } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleHome, RenderItem } from './styles'
+import { StyleHome, RenderItem, SwipeableAction } from './styles'
 import { CoinsContext } from '../../context/coinsContext'
 import { DataCoins } from '../../models/dataCoinsModel'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { GestureHandlerRootView, RectButton, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import {ModalConvert} from '../ModalConvert'
+import { ModalConvert } from '../ModalConvert'
 import { serviceDataCoins } from '../../services/dataCoinsService'
+import { Icon } from 'react-native-elements'
 
 export default function Home() {
   const coinsContext = useContext(CoinsContext)
@@ -27,46 +28,40 @@ export default function Home() {
   if (!coinsContext) return null
   const { state, dispatch } = coinsContext
 
-  useEffect(() => {
-    
-  },[])
-
-  const renderSwipeableAction = () => {
+  const renderSwipeableAction = (code: string) => {
 
     return (
-      <RectButton>
-        <Animated.Text>
-          EXCLUIR
-        </Animated.Text>
+      <RectButton style={SwipeableAction.container} onPress={() => dispatch({type: 'removeCoin', payload: code})}>
+        <Icon color='white' name='close'/>
       </RectButton>
     )
   }
 
   const renderItem = ({ item }: { item: DataCoins }) => {
 
-    if(item.isShow){
+    if (item.isShow) {
 
       return (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView style={{ backgroundColor: '#fa4646' }}>
           <Swipeable
-            renderRightActions={renderSwipeableAction}
+            renderRightActions={() => renderSwipeableAction(item.codein)}
             onSwipeableOpen={() => setOnSwipeable(true)}
             onSwipeableClose={() => setOnSwipeable(false)}>
             <TouchableWithoutFeedback
-              onPress={() => {setVisible(true); setCurrencyPress(item)}}
+              onPress={() => { setVisible(true); setCurrencyPress(item) }}
               disabled={onSwipeable ? true : false}>
-              <Animated.View style={[RenderItem.bg, item.selected ? { backgroundColor: '#d0facc' } : null]}>
+              <Animated.View style={[RenderItem.bg, item.selected ? { backgroundColor: '#d0facc' } : { backgroundColor: '#f1f1f1' }]}>
                 <View style={RenderItem.content}>
                   <View style={RenderItem.flag}>
                     <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
                   </View>
-  
+
                   <View style={RenderItem.nameCurrency}>
                     <Text style={{ color: 'gray' }}>{item.codein}</Text>
                     <Text>{item.name}</Text>
                   </View>
                 </View>
-  
+
                 <Animated.View
                   style={[RenderItem.valueCurrency, item.selected ? { backgroundColor: '#19a50d' } : null]}>
                   <Text style={item.selected ? { color: 'white' } : { color: '#13730A' }}>{item.symbol + ' ' + item.high}</Text>
@@ -84,8 +79,10 @@ export default function Home() {
   const ItemSeparatorComponent = () => {
     return (
       <View style={
-        {height: 1, marginLeft: 20,
-         marginRight: 20, backgroundColor: '#dddddd'}}/>
+        {
+          height: 1, marginLeft: 20,
+          marginRight: 20, backgroundColor: '#dddddd'
+        }} />
     )
   }
 
@@ -105,7 +102,7 @@ export default function Home() {
         setVisible={setVisible}
         newCurrency={newCurrency}
         setNewCurrency={setNewCurrency}
-        currencyPress={currencyPress}/>
+        currencyPress={currencyPress} />
 
     </StyleHome>
   )

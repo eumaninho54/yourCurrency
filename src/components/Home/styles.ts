@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 export const StyleHome = styled.View`
   flex: 1;
+  background-color: #f1f1f1;
 `;
 
 export const RenderItem = StyleSheet.create({
@@ -105,4 +106,13 @@ export const ModalConvert = StyleSheet.create({
     
   }
 
+})
+
+export const SwipeableAction = StyleSheet.create({
+  container: {
+    backgroundColor: '#fa4646',
+    alignItems: "center",
+    justifyContent: "center",
+    width: '20%'
+  }
 })
