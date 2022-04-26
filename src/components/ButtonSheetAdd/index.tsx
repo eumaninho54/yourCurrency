@@ -28,12 +28,12 @@ export default function ButtonSheetAdd() {
     { value: 'INR', key: 'INR', image: flags['INR'], name: nameCurrency['INR']},
     { value: 'CHF', key: 'CHF', image: flags['CHF'], name: nameCurrency['CHF']},
   ]
+  const [dataAvailable, setDataAvailable] = useState(dataList)
 
   if (!coinsContext) return null
   const { state, dispatch, showCurrencys, setShowCurrencys } = coinsContext
 
   const addPayload = async (code: string) => {
-
     setShowCurrencys([...showCurrencys, code])
     dispatch({
       type: 'addCoin',
@@ -41,8 +41,14 @@ export default function ButtonSheetAdd() {
     })
   }
 
-  const removePayload = async (code?: string) => {
-   
+  const removePayload = async (oldCode: string) => {
+    let newShowCurrencys = showCurrencys.filter(code => code != oldCode)
+    setShowCurrencys(newShowCurrencys)
+
+    dispatch({
+      type: 'removeCoin',
+      payload: oldCode
+    })
   }
 
   const renderCustomItem = (item: alphabetList) => {
@@ -96,24 +102,31 @@ export default function ButtonSheetAdd() {
     )
   }
 
+  const onSearch = (text: string) => {
+    setSearch(text)
+    setDataAvailable(dataList.filter(data => data.key.includes(text.toUpperCase())))
+
+    dispatch({
+      type: 'rebuildCoin',
+      payload: null
+    })
+  }
+
   return (
     <>
       <SearchBar
         platform={Platform.OS == 'android' ? 'android' : 'ios'}
         placeholder='Currency, Country, or Code'
-        onChangeText={(text) => setSearch(text)}
+        onChangeText={(text) => onSearch(text)}
         value={search}
       />
 
       <AlphabetList
         style={{ height: '70%' }}
         extraData={state}
-        data={dataList}
-        indexLetterStyle={{
-          color: 'green',
-          fontSize: 15,
-          paddingBottom: 20
-        }}
+        data={dataAvailable}
+        indexLetterStyle={{display: 'none'}}
+        indexContainerStyle={{display: 'none'}}
         renderCustomSectionHeader={renderCustomSectionHeader}
         renderCustomItem={(item: any) => renderCustomItem(item)} />
     </>

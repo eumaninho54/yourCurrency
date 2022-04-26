@@ -55,6 +55,8 @@ interface dispatchAction {
 interface actionsObject {
   addCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
   reloadCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
+  removeCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
+  rebuildCoin: (state: DataCoins[], action: dispatchAction) => DataCoins[]
 }
 
 export const CoinsContext = createContext<contextModel | null>(null)
@@ -63,29 +65,48 @@ const actions: actionsObject = {
 
   addCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
     let newState = state
-    
+
     newState.forEach(item => {
       if (item.codein == action.payload) {
         item.isShow = true
       }
     })
-    
+
+    return [...newState]
+  },
+
+  removeCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
+    let newState = state
+
+    newState.forEach(item => {
+      if (item.codein == action.payload) {
+        item.isShow = false
+      }
+    })
+
     return [...newState]
   },
 
   reloadCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
     let newState = action.payload['items']
-    
+
     newState.forEach((item: DataCoins) => {
       action.payload['code'].forEach((code: string) => {
-        if(item.codein == code){
+        if (item.codein == code) {
           item.isShow = true
         }
       })
     })
-  
+
     return [...newState]
   },
+
+  rebuildCoin(state: DataCoins[], action: dispatchAction): DataCoins[] {
+    let newState = [...state]
+
+    return [...newState]
+  }
+
 }
 
 export default function CoinsProvider({ children }: { children: React.ReactNode }) {
@@ -103,7 +124,7 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
       .then(items => {
         dispatch({
           type: 'reloadCoin',
-          payload: {items: items, code: showCurrencys}
+          payload: { items: items, code: showCurrencys }
         })
       })
   }, [])
