@@ -8,6 +8,7 @@ export interface DataCoins {
     name: string
     high: number | string | currency
     selected: boolean
+    isShow: boolean
 }
 
 export interface currencySymbol {
@@ -20,7 +21,6 @@ export interface currencySymbol {
     GBP: string
     AUD: string
     ARS: string
-    BTC: string
     INR: string
     CHF: string
 }
@@ -30,5 +30,4 @@ export interface alphabetList {
     key: string
     image: string
     name: string
-    selected: boolean
 }

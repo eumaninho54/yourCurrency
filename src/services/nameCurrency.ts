@@ -19,8 +19,6 @@ export const nameCurrency: currencySymbol = {
 
     ARS: "Argentine Peso",
 
-    BTC: "Bitcoin",
-
     INR: "Indian Rupee",
 
     CHF: "Swiss Franc"

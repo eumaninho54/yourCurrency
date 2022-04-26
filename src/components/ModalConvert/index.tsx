@@ -20,15 +20,15 @@ interface ModalConvert {
 export function ModalConvert({visible, setVisible, newCurrency, setNewCurrency, currencyPress}: ModalConvert) {
   const coinsContext = useContext(CoinsContext)
   if (!coinsContext) return null
-  const { state, dispatch } = coinsContext
+  const { state, dispatch, showCurrencys } = coinsContext
 
   const requestPayload = async (codein: string, value: number | null) => {
-
-    const dataApi = await serviceDataCoins.getComparison(state, codein, value == null ? 0 : value)
+    
+    const dataApi = await serviceDataCoins.getComparison(codein, value == null ? 0 : value)
     if (dataApi != undefined) {
       dispatch!({
         type: 'reloadCoin',
-        payload: dataApi
+        payload: {items: dataApi, code: showCurrencys}
       })
     }
     setNewCurrency(0)

@@ -19,8 +19,6 @@ export const flags: currencySymbol = {
 
     ARS: "https://cdn-icons-png.flaticon.com/512/3909/3909430.png",
 
-    BTC: "https://cdn-icons-png.flaticon.com/512/3378/3378036.png",
-
     INR: "https://cdn-icons-png.flaticon.com/512/3909/3909444.png",
 
     CHF: "https://cdn-icons-png.flaticon.com/512/3909/3909285.png"

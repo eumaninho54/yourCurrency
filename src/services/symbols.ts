@@ -20,8 +20,6 @@ export const symbols: currencySymbol = {
 
     ARS: "$",
 
-    BTC: "₿",
-
     INR: "₹",
 
     CHF: "Fr"
