@@ -10,6 +10,7 @@ import { Icon } from 'react-native-elements'
 import { flags } from '../../services/flags'
 import { serviceDataCoins } from '../../services/dataCoinsService'
 import { nameCurrency } from '../../services/nameCurrency'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function ButtonSheetAdd() {
@@ -35,6 +36,19 @@ export default function ButtonSheetAdd() {
 
   const addPayload = async (code: string) => {
     setShowCurrencys([...showCurrencys, code])
+
+    AsyncStorage.getItem('@showCurrencys')
+      .then((json) => {
+        if(json != null){
+          let localCurrencys = JSON.parse(json)
+          localCurrencys.push(code)
+          AsyncStorage.setItem('@showCurrencys', JSON.stringify(localCurrencys))
+        }
+        else {
+          AsyncStorage.setItem('@showCurrencys', JSON.stringify([code]))
+        }
+      })
+
     dispatch({
       type: 'addCoin',
       payload: code
@@ -44,6 +58,15 @@ export default function ButtonSheetAdd() {
   const removePayload = async (oldCode: string) => {
     let newShowCurrencys = showCurrencys.filter(code => code != oldCode)
     setShowCurrencys(newShowCurrencys)
+
+    AsyncStorage.getItem('@showCurrencys')
+      .then((json) => {
+        if(json != null){
+          let localCurrencys = JSON.parse(json)
+          localCurrencys = localCurrencys.filter((currency: string) => currency != oldCode)
+          AsyncStorage.setItem('@showCurrencys', JSON.stringify(localCurrencys))
+        }
+      })
 
     dispatch({
       type: 'removeCoin',

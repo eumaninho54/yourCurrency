@@ -5,40 +5,8 @@ import { flags } from '../services/flags'
 import { symbols } from '../services/symbols'
 import { DataCoins, currencySymbol, alphabetList } from '../models/dataCoinsModel'
 import { nameCurrency } from '../services/nameCurrency'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-let initialState2: DataCoins[] = [
-  {
-    code: 'USD',
-    codein: 'USD',
-    high: '1.00',
-    image: "https://cdn-icons-png.flaticon.com/512/3909/3909383.png",
-    name: 'Dólar/Dólar Americano',
-    selected: true,
-    symbol: "US$",
-    isShow: true
-  },
-  {
-    code: 'USD',
-    codein: 'BRL',
-    high: '4.75',
-    image: "https://cdn-icons-png.flaticon.com/512/3909/3909370.png",
-    name: 'Dólar/Real Brasileiro',
-    selected: false,
-    symbol: "R$",
-    isShow: true
-  },
-  {
-    code: 'USD',
-    codein: 'EUR',
-    high: '0.94',
-    image: "https://cdn-icons-png.flaticon.com/512/323/323344.png",
-    name: 'Dólar/Euro',
-    selected: false,
-    symbol: "€",
-    isShow: true
-  }
-
-]
 
 interface contextModel {
   state: DataCoins[]
@@ -117,16 +85,29 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [showCurrencys, setShowCurrencys] = useState(['BRL', 'USD', 'EUR'])
+  const [showCurrencys, setShowCurrencys] = useState<string[]>([])
 
   useEffect(() => {
-    serviceDataCoins.getComparison('USD', 1)
-      .then(items => {
-        dispatch({
-          type: 'reloadCoin',
-          payload: { items: items, code: showCurrencys }
-        })
-      })
+    const dataApi = async () => {
+      let json = await AsyncStorage.getItem('@showCurrencys')
+      let object: string[] = showCurrencys
+      if (json != null) {
+        object.push(JSON.parse(json))
+      }
+      setShowCurrencys(object)
+
+      if (object.length != 0) {
+        serviceDataCoins.getComparison('USD', 1)
+          .then(items => {
+            dispatch({
+              type: 'reloadCoin',
+              payload: { items: items, code: showCurrencys }
+            })
+          })
+      }
+    }
+
+    dataApi()
   }, [])
 
   return (
