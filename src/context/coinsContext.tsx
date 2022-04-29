@@ -90,13 +90,22 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
   useEffect(() => {
     const dataApi = async () => {
       let json = await AsyncStorage.getItem('@showCurrencys')
-      let object: string[] = showCurrencys
+      let array: string[] = []
       if (json != null) {
-        object.push(JSON.parse(json))
+        array = await JSON.parse(json)
       }
-      setShowCurrencys(object)
+      setShowCurrencys(array)
+      console.tron.log!(array)
 
-      if (object.length != 0) {
+      if (array.length != 0) {
+        serviceDataCoins.getComparison(array[0] , 1)
+          .then(items => {
+            dispatch({
+              type: 'reloadCoin',
+              payload: { items: items, code: array }
+            })
+          })
+      } else {
         serviceDataCoins.getComparison('USD', 1)
           .then(items => {
             dispatch({
@@ -106,7 +115,6 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
           })
       }
     }
-
     dataApi()
   }, [])
 

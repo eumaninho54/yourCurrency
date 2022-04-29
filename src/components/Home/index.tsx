@@ -95,6 +95,7 @@ export default function Home() {
 
   return (
     <StyleHome>
+      
       <FlatList
         data={state}
         extraData={state}
