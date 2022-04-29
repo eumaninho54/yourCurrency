@@ -7,24 +7,34 @@ import { Button } from 'react-native-elements';
 import ButtonSheetAdd from '../components/ButtonSheetAdd';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonSheet from '../templates/ButtonSheet';
+import FirstAccess from '../components/firstAccess';
 
-export default function Routes() {
+interface RoutesModel {
+  firstAccess: string
+  setFirstAccess: React.Dispatch<React.SetStateAction<string>>
+}
+
+export default function Routes({ firstAccess, setFirstAccess }: RoutesModel) {
   const [showSlidingAdd, setShowSlidingAdd] = useState(null)
 
-  return (
-    <>
-      <NavigationContainer>
-        <TabNav showSlidingAdd={showSlidingAdd} />
+  if (firstAccess == 'false')
+    return <FirstAccess setFirstAccess={setFirstAccess} />
 
-        <SlidingUpPanel
-          allowDragging={false}
-          ref={(ref: any) => setShowSlidingAdd(ref)}>
-          <ButtonSheet showSlidingAdd={showSlidingAdd}>
-            <ButtonSheetAdd />
-          </ButtonSheet>
-        </SlidingUpPanel>
+  else
+    return (
+      <>
+        <NavigationContainer>
+          <TabNav showSlidingAdd={showSlidingAdd} />
 
-      </NavigationContainer>
-    </>
-  )
+          <SlidingUpPanel
+            allowDragging={false}
+            ref={(ref: any) => setShowSlidingAdd(ref)}>
+            <ButtonSheet showSlidingAdd={showSlidingAdd}>
+              <ButtonSheetAdd />
+            </ButtonSheet>
+          </SlidingUpPanel>
+
+        </NavigationContainer>
+      </>
+    )
 }

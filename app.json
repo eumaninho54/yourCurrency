@@ -4,11 +4,11 @@
     "slug": "yourCurrency",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/splash.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#19a50d"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,14 +20,10 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/splash.png"
     },
     "sdkVersion": "44.0.0"
   },

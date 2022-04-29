@@ -127,7 +127,8 @@ export default function ButtonSheetAdd() {
 
   const onSearch = (text: string) => {
     setSearch(text)
-    setDataAvailable(dataList.filter(data => data.key.includes(text.toUpperCase())))
+    setDataAvailable(dataList.filter(data => data.key.includes(text.toUpperCase()) 
+                                          || data.name.toUpperCase().includes(text.toUpperCase())))
 
     dispatch({
       type: 'rebuildCoin',

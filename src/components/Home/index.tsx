@@ -26,13 +26,13 @@ export default function Home() {
   })
 
   if (!coinsContext) return null
-  const { state, dispatch } = coinsContext
+  const { state, dispatch, showCurrencys } = coinsContext
 
   const renderSwipeableAction = (code: string) => {
 
     return (
-      <RectButton style={SwipeableAction.container} onPress={() => dispatch({type: 'removeCoin', payload: code})}>
-        <Icon color='white' name='close'/>
+      <RectButton style={SwipeableAction.container} onPress={() => dispatch({ type: 'removeCoin', payload: code })}>
+        <Icon color='white' name='close' />
       </RectButton>
     )
   }
@@ -77,13 +77,20 @@ export default function Home() {
   }
 
   const ItemSeparatorComponent = () => {
-    return (
-      <View style={
-        {
-          height: 1, marginLeft: 20,
-          marginRight: 20, backgroundColor: '#dddddd'
-        }} />
-    )
+
+    if (showCurrencys.length > 1){
+      return (
+        <View style={
+          {
+            height: 0.5, marginLeft: 20,
+            marginRight: 20, backgroundColor: '#dddddd'
+          }} />
+      )
+    }
+    else{
+      return null
+    }
+
   }
 
   return (
