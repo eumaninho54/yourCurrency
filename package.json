@@ -32,6 +32,7 @@
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-keyboard-spacer": "^0.4.1",
+    "react-native-loading-spinner-overlay": "^3.0.0",
     "react-native-modal": "^13.0.1",
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-reanimated": "~2.3.1",

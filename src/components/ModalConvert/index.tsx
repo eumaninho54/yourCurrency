@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, Platform, Keyboard } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Modal from 'react-native-modal'
 import { StyleModalConvert } from './styles'
 import { Icon } from 'react-native-elements'
@@ -8,6 +8,7 @@ import CurrencyInput from 'react-native-currency-input'
 import { CoinsContext } from '../../context/coinsContext'
 import { serviceDataCoins } from '../../services/dataCoinsService'
 import { DataCoins } from '../../models/dataCoinsModel'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 interface ModalConvert {
   visible: boolean
@@ -17,18 +18,17 @@ interface ModalConvert {
   currencyPress: DataCoins
 }
 
-export function ModalConvert({visible, setVisible, newCurrency, setNewCurrency, currencyPress}: ModalConvert) {
+export function ModalConvert({ visible, setVisible, newCurrency, setNewCurrency, currencyPress }: ModalConvert) {
   const coinsContext = useContext(CoinsContext)
   if (!coinsContext) return null
   const { state, dispatch, showCurrencys } = coinsContext
 
   const requestPayload = async (codein: string, value: number | null) => {
-    
     const dataApi = await serviceDataCoins.getComparison(codein, value == null ? 0 : value)
     if (dataApi != undefined) {
       dispatch!({
         type: 'reloadCoin',
-        payload: {items: dataApi, code: showCurrencys}
+        payload: { items: dataApi, code: showCurrencys }
       })
     }
     setNewCurrency(0)
@@ -54,7 +54,7 @@ export function ModalConvert({visible, setVisible, newCurrency, setNewCurrency, 
 
             <View style={StyleModalConvert.nameCurrency}>
               <Text style={{ color: 'gray' }}>{currencyPress.codein}</Text>
-              <Text>{currencyPress.name.split('/', 2)[1]}</Text>
+              <Text>{currencyPress.name}</Text>
             </View>
           </View>
 
@@ -84,9 +84,28 @@ export function ModalConvert({visible, setVisible, newCurrency, setNewCurrency, 
             onPress={() => requestPayload(currencyPress.codein, newCurrency)}>
             <Text style={{ fontSize: 20, color: 'white' }}>CONVERT</Text>
           </TouchableOpacity>
+
+          <View style={StyleModalConvert.suggestions}>
+            <TouchableOpacity
+              style={StyleModalConvert.buttonSuggestion}
+              onPress={() => requestPayload(currencyPress.codein, 1)}>
+              <Text style={{ fontSize: 20, color: '#19a50d' }}>{currencyPress.symbol}1</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={StyleModalConvert.buttonSuggestion}
+              onPress={() => requestPayload(currencyPress.codein, 10)}>
+              <Text style={{ fontSize: 20, color: '#19a50d' }}>{currencyPress.symbol}10</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={StyleModalConvert.buttonSuggestion}
+              onPress={() => requestPayload(currencyPress.codein, 100)}>
+              <Text style={{ fontSize: 20, color: '#19a50d' }}>{currencyPress.symbol}100</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-
       {Platform.OS === 'ios' ? <KeyboardSpacer /> : null}
     </Modal>
   )

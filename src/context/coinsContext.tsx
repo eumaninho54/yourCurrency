@@ -94,7 +94,6 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
           array = await JSON.parse(json)
         }
         setShowCurrencys(array)
-        console.tron.log!(array)
       }
 
 

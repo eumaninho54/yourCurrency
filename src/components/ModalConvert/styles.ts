@@ -58,4 +58,26 @@ export const StyleModalConvert = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  suggestions: {
+    marginTop: 15,
+    flexDirection: "row"
+  },
+
+  buttonSuggestion: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    width: 80,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 10
+  },
+  
+  loading: {
+    position: 'absolute',
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 10
+  }
 });

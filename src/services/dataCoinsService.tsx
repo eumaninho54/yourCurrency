@@ -15,7 +15,7 @@ class ServiceDataCoins {
     let currencyCodein: number = valueCodein
 
     const currencys = 'USD-BRL,USD-CAD,USD-EUR,USD-CNY,USD-JPY,USD-GBP,USD-AUD,USD-ARS,USD-INR,USD-CHF'
-
+    
     let dataApi = await fetch(`${this.urlAPI}last/${currencys}`, {
       method: 'GET'
     }).then((response) => response.json())
@@ -29,7 +29,7 @@ class ServiceDataCoins {
         currencyCodein = dataApi[key].ask
       })
     }
-
+    
     Object.keys(dataApi).forEach(key => {
 
       returnState.push({
