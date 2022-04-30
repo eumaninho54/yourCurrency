@@ -1,4 +1,4 @@
-import { View, Text, Platform } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
 import { Switch } from 'react-native-elements';
 import { cardSettings } from './styles';
@@ -32,7 +32,7 @@ export default function CardSettings({onActived, title, description, valueSwitch
             color={'#c0c0c0'}
             size={30}
             tvParallaxProperties={{}} 
-            onPress={onActived}/>
+            onPress={() => onActived()}/>
         }
         
       </View>

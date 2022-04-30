@@ -1,20 +1,19 @@
 import { View, Text, Platform, SectionListData, DefaultSectionT, Image, TouchableOpacity } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { RenderCustomItemStyle } from './styles'
 import { AlphabetList, IData } from 'react-native-section-alphabet-list'
 import { CoinsContext } from '../../context/coinsContext'
-import { alphabetList, currencySymbol } from '../../models/dataCoinsModel'
-import ButtonSheet from '../../templates/ButtonSheet'
-import { Button, CheckBox, SearchBar } from 'react-native-elements';
-import { Icon } from 'react-native-elements'
+import { SettingsContext } from '../../context/settingsContext'
+import { alphabetList } from '../../models/dataCoinsModel'
+import { CheckBox, SearchBar } from 'react-native-elements';
 import { flags } from '../../services/flags'
-import { serviceDataCoins } from '../../services/dataCoinsService'
 import { nameCurrency } from '../../services/nameCurrency'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function ButtonSheetAdd() {
   const coinsContext = useContext(CoinsContext)
+  const settingsContext = useContext(SettingsContext)
   const [search, setSearch] = useState<any>('')
   let dataList: alphabetList[] = [
     { value: 'BRL', key: 'BRL', image: flags['BRL'], name: nameCurrency['BRL']},
@@ -34,20 +33,25 @@ export default function ButtonSheetAdd() {
   if (!coinsContext) return null
   const { state, dispatch, showCurrencys, setShowCurrencys } = coinsContext
 
+  if (!settingsContext) return null
+  const { saveCurrencys } = settingsContext
+
   const addPayload = async (code: string) => {
     setShowCurrencys([...showCurrencys, code])
 
-    AsyncStorage.getItem('@showCurrencys')
-      .then((json) => {
-        if(json != null){
-          let localCurrencys = JSON.parse(json)
-          localCurrencys.push(code)
-          AsyncStorage.setItem('@showCurrencys', JSON.stringify(localCurrencys))
-        }
-        else {
-          AsyncStorage.setItem('@showCurrencys', JSON.stringify([code]))
-        }
-      })
+    if(saveCurrencys){
+      AsyncStorage.getItem('@showCurrencys')
+        .then((json) => {
+          if(json != null){
+            let localCurrencys = JSON.parse(json)
+            localCurrencys.push(code)
+            AsyncStorage.setItem('@showCurrencys', JSON.stringify(localCurrencys))
+          }
+          else {
+            AsyncStorage.setItem('@showCurrencys', JSON.stringify([code]))
+          }
+        })
+    }
 
     dispatch({
       type: 'addCoin',
@@ -59,14 +63,16 @@ export default function ButtonSheetAdd() {
     let newShowCurrencys = showCurrencys.filter(code => code != oldCode)
     setShowCurrencys(newShowCurrencys)
 
-    AsyncStorage.getItem('@showCurrencys')
-      .then((json) => {
-        if(json != null){
-          let localCurrencys = JSON.parse(json)
-          localCurrencys = localCurrencys.filter((currency: string) => currency != oldCode)
-          AsyncStorage.setItem('@showCurrencys', JSON.stringify(localCurrencys))
-        }
-      })
+    if(saveCurrencys){
+      AsyncStorage.getItem('@showCurrencys')
+        .then((json) => {
+          if(json != null){
+            let localCurrencys = JSON.parse(json)
+            localCurrencys = localCurrencys.filter((currency: string) => currency != oldCode)
+            AsyncStorage.setItem('@showCurrencys', JSON.stringify(localCurrencys))
+          }
+        })
+    }
 
     dispatch({
       type: 'removeCoin',

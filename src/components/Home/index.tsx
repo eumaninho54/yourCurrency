@@ -1,12 +1,11 @@
 import { View, Text, FlatList, Image, Animated } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleHome, RenderItem, SwipeableAction } from './styles'
 import { CoinsContext } from '../../context/coinsContext'
 import { DataCoins } from '../../models/dataCoinsModel'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { GestureHandlerRootView, RectButton, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ModalConvert } from '../ModalConvert'
-import { serviceDataCoins } from '../../services/dataCoinsService'
 import { Icon } from 'react-native-elements'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

@@ -1,7 +1,5 @@
 import React from 'react'
-import { Button } from 'react-native-elements'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import { Icon, Image } from 'react-native-elements'
 import addIcon from '../../assets/add-icon1-green.png'

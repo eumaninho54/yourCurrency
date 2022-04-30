@@ -1,10 +1,6 @@
-import { View, Text } from 'react-native'
 import React, { createContext, useEffect, useReducer, useState } from 'react'
 import { serviceDataCoins } from '../services/dataCoinsService'
-import { flags } from '../services/flags'
-import { symbols } from '../services/symbols'
-import { DataCoins, currencySymbol, alphabetList } from '../models/dataCoinsModel'
-import { nameCurrency } from '../services/nameCurrency'
+import { DataCoins } from '../models/dataCoinsModel'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -89,16 +85,21 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
 
   useEffect(() => {
     const dataApi = async () => {
-      let json = await AsyncStorage.getItem('@showCurrencys')
+      let isShowCurrencys = await AsyncStorage.getItem('@saveCurrencys')
       let array: string[] = []
-      if (json != null) {
-        array = await JSON.parse(json)
+
+      if (isShowCurrencys == 'true') {
+        let json = await AsyncStorage.getItem('@showCurrencys')
+        if (json != null) {
+          array = await JSON.parse(json)
+        }
+        setShowCurrencys(array)
+        console.tron.log!(array)
       }
-      setShowCurrencys(array)
-      console.tron.log!(array)
+
 
       if (array.length != 0) {
-        serviceDataCoins.getComparison(array[0] , 1)
+        serviceDataCoins.getComparison(array[0], 1)
           .then(items => {
             dispatch({
               type: 'reloadCoin',

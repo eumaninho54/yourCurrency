@@ -1,12 +1,11 @@
 import 'react-native-gesture-handler'
-import { View, Text, StatusBar, SafeAreaView, useColorScheme } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import { StatusBar, SafeAreaView } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import Routes from './src/routes'
 import { reactotron } from './src/config/reactotron'
 import CoinsProvider from './src/context/coinsContext'
+import SettingsProvider from './src/context/settingsContext'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import themes from './src/config/themes'
-import { ThemeProvider } from 'styled-components/native'
 
 console.tron = reactotron
 
@@ -32,9 +31,11 @@ export default function App() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: '#19a50d' }}>
         <StatusBar animated backgroundColor={'#19a50d'} />
-        <CoinsProvider>
-          <Routes firstAccess={firstAccess} setFirstAccess={setFirstAccess} />
-        </CoinsProvider>
+        <SettingsProvider>
+          <CoinsProvider>
+            <Routes firstAccess={firstAccess} setFirstAccess={setFirstAccess} />
+          </CoinsProvider>
+        </SettingsProvider>
       </SafeAreaView>
 
     )
