@@ -1,4 +1,3 @@
 // Import Pngs
-declare module '*.png';
+declare module "*.png";
 
-//Imports

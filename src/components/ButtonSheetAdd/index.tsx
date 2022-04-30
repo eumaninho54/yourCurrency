@@ -140,7 +140,7 @@ export default function ButtonSheetAdd() {
     <>
       <SearchBar
         platform={Platform.OS == 'android' ? 'android' : 'ios'}
-        placeholder='Currency, Country, or Code'
+        placeholder='Currency or Code'
         onChangeText={(text) => onSearch(text)}
         value={search}
       />

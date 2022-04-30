@@ -8,6 +8,7 @@ import { GestureHandlerRootView, RectButton, TouchableWithoutFeedback } from 're
 import { ModalConvert } from '../ModalConvert'
 import { serviceDataCoins } from '../../services/dataCoinsService'
 import { Icon } from 'react-native-elements'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
   const coinsContext = useContext(CoinsContext)
@@ -26,12 +27,30 @@ export default function Home() {
   })
 
   if (!coinsContext) return null
-  const { state, dispatch, showCurrencys } = coinsContext
+  const { state, dispatch, showCurrencys, setShowCurrencys } = coinsContext
+
+  const swipeableRemove = async (oldCode: string) => {
+
+    let newShowCurrencys = showCurrencys.filter(code => code != oldCode)
+    setShowCurrencys(newShowCurrencys)
+
+    AsyncStorage.getItem('@showCurrencys')
+      .then((json) => {
+        if(json != null){
+          let localCurrencys = JSON.parse(json)
+          localCurrencys = localCurrencys.filter((currency: string) => currency != oldCode)
+          AsyncStorage.setItem('@showCurrencys', JSON.stringify(localCurrencys))
+        }
+      })
+  
+
+    dispatch({ type: 'removeCoin', payload: oldCode })
+  }
 
   const renderSwipeableAction = (code: string) => {
 
     return (
-      <RectButton style={SwipeableAction.container} onPress={() => dispatch({ type: 'removeCoin', payload: code })}>
+      <RectButton style={SwipeableAction.container} onPress={() => swipeableRemove(code)}>
         <Icon color='white' name='close' />
       </RectButton>
     )
@@ -76,13 +95,13 @@ export default function Home() {
     }
   }
 
-  const ItemSeparatorComponent = () => {
+  const ItemSeparatorComponent = ({leadingItem}: {leadingItem: DataCoins} ) => {
 
-    if (showCurrencys.length > 1){
+    if (showCurrencys.length > 1 && leadingItem.isShow){
       return (
         <View style={
           {
-            height: 0.5, marginLeft: 20,
+            height: 2, marginLeft: 20,
             marginRight: 20, backgroundColor: '#dddddd'
           }} />
       )
@@ -95,14 +114,14 @@ export default function Home() {
 
   return (
     <StyleHome>
-      
+
       <FlatList
         data={state}
         extraData={state}
         keyExtractor={(coin) => coin.codein}
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 100 }}
-        ItemSeparatorComponent={ItemSeparatorComponent}>
+        ItemSeparatorComponent={(teste) => ItemSeparatorComponent(teste)}>
       </FlatList>
 
       <ModalConvert
