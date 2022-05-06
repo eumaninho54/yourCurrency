@@ -29,6 +29,7 @@ export default function Home() {
   const { state, dispatch, showCurrencys, setShowCurrencys } = coinsContext
 
   const swipeableRemove = async (oldCode: string) => {
+    setOnSwipeable(false)
 
     let newShowCurrencys = showCurrencys.filter(code => code != oldCode)
     setShowCurrencys(newShowCurrencys)
@@ -42,7 +43,6 @@ export default function Home() {
         }
       })
   
-
     dispatch({ type: 'removeCoin', payload: oldCode })
   }
 
@@ -66,7 +66,7 @@ export default function Home() {
             onSwipeableOpen={() => setOnSwipeable(true)}
             onSwipeableClose={() => setOnSwipeable(false)}>
             <TouchableWithoutFeedback
-              onPress={() => { setVisible(true); setCurrencyPress(item) }}
+              onPress={() => { setVisible(true); setCurrencyPress(item); console.tron.log!(item) }}
               disabled={onSwipeable ? true : false}>
               <Animated.View style={[RenderItem.bg, item.selected ? { backgroundColor: '#d0facc' } : { backgroundColor: '#f1f1f1' }]}>
                 <View style={RenderItem.content}>

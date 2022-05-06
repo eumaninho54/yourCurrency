@@ -43,11 +43,13 @@ const actions: actionsObject = {
     let newState = state
 
     newState.forEach(item => {
+
       if (item.codein == action.payload) {
         item.isShow = false
       }
     })
 
+    console.tron.log!(newState)
     return [...newState]
   },
 
@@ -95,7 +97,6 @@ export default function CoinsProvider({ children }: { children: React.ReactNode 
         }
         setShowCurrencys(array)
       }
-
 
       if (array.length != 0) {
         serviceDataCoins.getComparison(array[0], 1)
