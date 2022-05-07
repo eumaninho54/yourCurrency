@@ -21,7 +21,7 @@ export default function Settings() {
   }
 
   const toAbout = async () => {
-    const url = "https://github.com/ymaninho54"
+    const url = "https://github.com/eumaninho54"
 
     const supported = await Linking.canOpenURL(url)
 
