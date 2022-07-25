@@ -24,7 +24,7 @@ The app was built with:
 
 1. Installation: 
 ```
-$ git clone https://github.com/ymaninho54/yourCurrency
+$ git clone https://github.com/eumaninho54/yourCurrency
 
 $ cd yourCurrency
 ```
